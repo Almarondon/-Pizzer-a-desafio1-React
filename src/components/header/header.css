@@ -1,0 +1,17 @@
+.header {
+  background-image: url("../../assets/images/Header.jpg");
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+}
+.header h1 {
+  align-items: center;
+  color: white;
+}
+.header p {
+  align-items: center;
+  color: white;
+}
