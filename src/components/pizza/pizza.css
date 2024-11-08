@@ -1,0 +1,17 @@
+.pizza {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  flex-direction: row;
+  padding: 30px;
+  min-height: 90vh;
+}
+.image {
+  border-radius: 5px;
+  border-radius: 50%;
+}
+
+.btn {
+  margin-top: 40px;
+  margin-left: 30px;
+}
