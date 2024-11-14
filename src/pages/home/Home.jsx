@@ -1,7 +1,7 @@
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import Header from "../header/Header";
+import Header from "../../components/header/Header";
 import "./home.css";
-import CardPizza from "../CardPizza";
+import CardPizza from "../../components/CardPizza";
 import { useEffect, useState } from "react";
 
 const Home = () => {
