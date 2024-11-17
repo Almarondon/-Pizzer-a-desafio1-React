@@ -99,7 +99,9 @@ const Cart = () => {
         </Card.Body>
         <Card.Footer>
           <h4>Total: $ {total}</h4>
-          <Button variant="dark">Pagar</Button>
+          <Button style={{ marginBottom: "20px" }} variant="dark">
+            Pagar
+          </Button>
         </Card.Footer>
       </Card>
     </Container>

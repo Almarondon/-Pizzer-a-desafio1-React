@@ -88,7 +88,7 @@ const Register = () => {
               onChange={(e) => setConfirmarPassword(e.target.value)}
             />
           </Form.Group>
-          <Button variant="dark" type="submit">
+          <Button style={{ marginBottom: "20px" }} variant="dark" type="submit">
             Enviar
           </Button>
         </Form>

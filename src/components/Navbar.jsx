@@ -1,4 +1,9 @@
-import { Container, Nav, Navbar as BootstrapNavbar } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar as BootstrapNavbar,
+  NavLink,
+} from "react-bootstrap";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 const Navbar = () => {
@@ -10,23 +15,33 @@ const Navbar = () => {
     <>
       <BootstrapNavbar bg="dark" data-bs-theme="dark">
         <Container>
-          <BootstrapNavbar.Brand href="#home">
+          <BootstrapNavbar.Brand onClick={() => navigate("/")}>
             ¡Pizzeria Mamma Mia!
           </BootstrapNavbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">🍕 Home</Nav.Link>
-            {token && <Nav.Link href="#profile">🔓 Profile</Nav.Link>}
-            {token && <Nav.Link href="#logout">🔓 Logout</Nav.Link>}
-            {!token && (
-              <Nav.Link onClick={() => navigate("/register")}>
-                🔐 Login
+            <Nav.Link onClick={() => navigate("/")}>🍕 Home</Nav.Link>
+            {token && (
+              <Nav.Link onClick={() => navigate("/profile")}>
+                🔓 Profile
               </Nav.Link>
             )}
-            {!token && <Link to={"/register"}>🔐 Register</Link>}
+            {token && (
+              <Nav.Link onClick={() => navigate("/log")}>🔓 Logout</Nav.Link>
+            )}
+            {!token && (
+              <Nav.Link onClick={() => navigate("/login")}>🔐 Login</Nav.Link>
+            )}
+            {!token && (
+              <Nav.Link onClick={() => navigate("/register")}>
+                🔐 Register
+              </Nav.Link>
+            )}
           </Nav>
           <Nav>
             <Nav.Link href="#total">
-              🛒 Total $ {total.toLocaleString("es-CL")}
+              <Nav.Link onClick={() => navigate("/cart")}>
+                🛒 Total $ {total.toLocaleString("es-CL")}
+              </Nav.Link>
             </Nav.Link>
           </Nav>
         </Container>
