@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Button, Stack } from "react-bootstrap";
 
 const CardPizza = (props) => {
-  const { name, price = 0, ingredients = [], img } = props;
+  const { name, price = 0, ingredients = [], img, onClickAdd } = props;
   return (
     <Card
       style={{
@@ -38,10 +38,8 @@ const CardPizza = (props) => {
       </ListGroup>
       <Card.Body>
         <Stack direction="horizontal" gap={3}>
-          <Button variant="outline-dark" href="#">
-            Ver Mas 👀
-          </Button>
-          <Button className="ms-auto" variant="dark" href="#">
+          <Button variant="outline-dark">Ver Mas 👀</Button>
+          <Button className="ms-auto" onClick={onClickAdd} variant="dark">
             Añadir 🛒
           </Button>
         </Stack>

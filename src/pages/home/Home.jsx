@@ -2,9 +2,11 @@ import { Col, Container, Row, Stack } from "react-bootstrap";
 import Header from "../../components/header/Header";
 import "./home.css";
 import CardPizza from "../../components/CardPizza";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 const Home = () => {
+  const { add } = useContext(CartContext);
   const [pizzas, setPizzas] = useState([]);
 
   const fetchPizzas = async () => {
@@ -32,7 +34,12 @@ const Home = () => {
           <Row>
             {pizzas.map((pizza) => (
               <Col md={4} key={pizza.name}>
-                <CardPizza {...pizza} />
+                <CardPizza
+                  {...pizza}
+                  onClickAdd={() => {
+                    add(pizza);
+                  }}
+                />
               </Col>
             ))}
           </Row>

@@ -7,48 +7,18 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { pizzasCart } from "../data/pizzas";
-import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 const Cart = () => {
-  const calcularTotal = (items) => {
-    let accumulator = 0;
-
-    for (const item of items) {
-      const operation = item.price * item.quantity;
-      accumulator = accumulator + operation;
-    }
-
-    return accumulator;
-  };
-
-  const [cart, setCart] = useState(pizzasCart);
-  const [total, setTotal] = useState(calcularTotal(pizzasCart));
+  const { cart, add, remove } = useContext(CartContext);
 
   const increaseQuantity = (c) => {
-    const resultado = cart.map((item) => {
-      if (item.name === c.name) {
-        item.quantity += 1;
-        return item;
-      }
-      return item;
-    });
-    setCart(resultado);
-    const total = calcularTotal(cart);
-    setTotal(total);
+    add(c);
   };
 
   const decreaseQuantity = (c) => {
-    const resultado = cart.map((item) => {
-      if (item.name === c.name) {
-        item.quantity -= 1;
-        return item;
-      }
-      return item;
-    });
-    setCart(resultado.filter((r) => r.quantity > 0));
-    const total = calcularTotal(cart);
-    setTotal(total);
+    remove(c);
   };
 
   return (
@@ -63,7 +33,7 @@ const Cart = () => {
         </Card.Header>
         <Card.Body>
           <ListGroup>
-            {cart.map((c) => (
+            {cart.products.map((c) => (
               <ListGroup.Item key={c.name}>
                 <Row>
                   <Col>
@@ -83,7 +53,7 @@ const Cart = () => {
                         margin: 10,
                       }}
                     >
-                      {c.quantity}
+                      {c.qty}
                     </label>
                     <Button
                       onClick={() => decreaseQuantity(c)}
@@ -98,7 +68,7 @@ const Cart = () => {
           </ListGroup>
         </Card.Body>
         <Card.Footer>
-          <h4>Total: $ {total}</h4>
+          <h4>Total: $ {cart.total}</h4>
           <Button style={{ marginBottom: "20px" }} variant="dark">
             Pagar
           </Button>

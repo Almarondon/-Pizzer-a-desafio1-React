@@ -1,13 +1,10 @@
-import {
-  Container,
-  Nav,
-  Navbar as BootstrapNavbar,
-  NavLink,
-} from "react-bootstrap";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { useContext } from "react";
+import { Container, Nav, Navbar as BootstrapNavbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../contexts/CartContext";
 
 const Navbar = () => {
-  const total = 25000;
+  const { cart } = useContext(CartContext);
   const token = false;
   const navigate = useNavigate();
 
@@ -40,7 +37,7 @@ const Navbar = () => {
           <Nav>
             <Nav.Link href="#total">
               <Nav.Link onClick={() => navigate("/cart")}>
-                🛒 Total $ {total.toLocaleString("es-CL")}
+                🛒 Total $ {cart.total.toLocaleString("es-CL")}
               </Nav.Link>
             </Nav.Link>
           </Nav>

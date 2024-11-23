@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "./pizza.css";
+import { useParams } from "react-router-dom";
 
 const Pizza = () => {
+  const { id } = useParams();
   const [pizza, setPizza] = useState({
     ingredients: [],
   });
 
-  const fetchPizza = async () => {
+  const fetchPizza = async (id) => {
     try {
-      const response = await fetch("http://localhost:5500/api/pizzas/p001");
+      const response = await fetch("http://localhost:5500/api/pizzas/" + id);
       const data = await response.json();
       setPizza(data);
     } catch (error) {
@@ -21,8 +23,8 @@ const Pizza = () => {
   };
 
   useEffect(() => {
-    fetchPizza();
-  }, []);
+    fetchPizza(id);
+  }, [id]);
 
   return (
     <>
