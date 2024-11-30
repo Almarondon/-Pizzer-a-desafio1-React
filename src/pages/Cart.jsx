@@ -9,8 +9,11 @@ import {
 } from "react-bootstrap";
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import { UserContext } from "../contexts/UserContext";
 
 const Cart = () => {
+  const { token } = useContext(UserContext);
+
   const { cart, add, remove } = useContext(CartContext);
 
   const increaseQuantity = (c) => {
@@ -69,7 +72,11 @@ const Cart = () => {
         </Card.Body>
         <Card.Footer>
           <h4>Total: $ {cart.total}</h4>
-          <Button style={{ marginBottom: "20px" }} variant="dark">
+          <Button
+            disabled={token === false}
+            style={{ marginBottom: "20px" }}
+            variant="dark"
+          >
             Pagar
           </Button>
         </Card.Footer>

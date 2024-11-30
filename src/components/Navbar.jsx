@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { Container, Nav, Navbar as BootstrapNavbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
+import { UserContext } from "../contexts/UserContext";
 
 const Navbar = () => {
   const { cart } = useContext(CartContext);
-  const token = false;
+  const { token, logout } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   return (
@@ -22,9 +24,7 @@ const Navbar = () => {
                 🔓 Profile
               </Nav.Link>
             )}
-            {token && (
-              <Nav.Link onClick={() => navigate("/log")}>🔓 Logout</Nav.Link>
-            )}
+            {token && <Nav.Link onClick={() => logout()}>🔓 Logout</Nav.Link>}
             {!token && (
               <Nav.Link onClick={() => navigate("/login")}>🔐 Login</Nav.Link>
             )}
