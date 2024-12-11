@@ -10,11 +10,11 @@ import {
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { UserContext } from "../contexts/UserContext";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const { token } = useContext(UserContext);
-
-  const { cart, add, remove } = useContext(CartContext);
+  const { cart, add, remove, checkout } = useContext(CartContext);
 
   const increaseQuantity = (c) => {
     add(c);
@@ -22,6 +22,24 @@ const Cart = () => {
 
   const decreaseQuantity = (c) => {
     remove(c);
+  };
+
+  const checkoutHandler = () => {
+    checkout(cart, token.token)
+      .then(() => {
+        Swal.fire({
+          title: "Good job!",
+          text: "Compra exitosa",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Error!",
+          text: "Ha ocurrido un error al comprar",
+          icon: "error",
+        });
+      });
   };
 
   return (
@@ -73,7 +91,8 @@ const Cart = () => {
         <Card.Footer>
           <h4>Total: $ {cart.total}</h4>
           <Button
-            disabled={token === false}
+            disabled={token === ""}
+            onClick={checkoutHandler}
             style={{ marginBottom: "20px" }}
             variant="dark"
           >

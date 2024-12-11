@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./register.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
+import { UserContext } from "../../contexts/UserContext";
 
 const Register = () => {
+  const { register } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmarPassword, setConfirmarPassword] = useState("");
@@ -52,11 +54,22 @@ const Register = () => {
       });
       return;
     }
-    Swal.fire({
-      title: "Good job!",
-      text: "Registro exitoso!",
-      icon: "success",
-    });
+
+    register(email, password)
+      .then(() => {
+        Swal.fire({
+          title: "Good job!",
+          text: "Registro exitoso!",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Error!",
+          text: "Ha ocurrido un error al registrarse",
+          icon: "error",
+        });
+      });
   };
 
   return (

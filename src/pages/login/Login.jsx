@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./login.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Swal from "sweetalert2";
+import { UserContext } from "../../contexts/UserContext";
 
 const Login = () => {
+  const { login } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,11 +29,22 @@ const Login = () => {
       });
       return;
     }
-    Swal.fire({
-      title: "Good job!",
-      text: "Login exitoso!",
-      icon: "success",
-    });
+
+    login(email, password)
+      .then(() => {
+        Swal.fire({
+          title: "Good job!",
+          text: "Autenticación exitosa",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Error!",
+          text: "Ha ocurrido un error al autenticarse",
+          icon: "error",
+        });
+      });
   };
 
   return (

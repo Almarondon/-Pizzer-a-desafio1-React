@@ -35,6 +35,33 @@ export const CartContextProvider = ({ children }) => {
     });
   };
 
+  const checkout = async (cart, token) => {
+    var headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+    headers.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify(cart);
+
+    var requestOptions = {
+      method: "POST",
+      headers,
+      body: raw,
+    };
+
+    const response = await fetch(
+      "http://localhost:5500/api/checkouts",
+      requestOptions
+    );
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      return result;
+    }
+
+    throw new Error(result);
+  };
+
   const remove = (pizza) => {
     const productsQty = [...cart.products];
     let total = 0;
@@ -55,7 +82,7 @@ export const CartContextProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, add, remove }}>
+    <CartContext.Provider value={{ cart, add, remove, checkout }}>
       {children}
     </CartContext.Provider>
   );
